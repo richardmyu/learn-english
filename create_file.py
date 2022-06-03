@@ -57,27 +57,26 @@ def create_file():
     """生成 md 文件
     """
     print("--- creating problems files ---")
-
     local_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
     print('--- now: {} ---'.format(local_time))
     file_menu = local_time[0:10].replace('-', os.path.sep)
 
     try:
+        # menu year
         if not os.path.exists(file_menu[0:4]) and os.path.isdir(file_menu[0:4]):
             os.mkdir(file_menu[0:4])
-
         os.chdir(os.path.join(current_cwd, file_menu[0:4]))
+        # menu month
         if not os.path.exists(file_menu[5:7]) and os.path.isdir(file_menu[5:7]):
             os.mkdir(file_menu[5:7])
-
         os.chdir(os.path.join(current_cwd, file_menu[0:7]))
+        # menu day
         if not os.path.exists(os.path.join(current_cwd, file_menu[8:10])):
             with open(file_menu[8:10]+'.md', 'w', encoding='utf-8') as file:
                 file.write(
-                    md_title+str(file_menu[0:4])+"."+str(file_menu[5:7]))
+                    md_title+str(file_menu[5:7])+"."+str(file_menu[8:10]))
                 file.write(md_content)
                 print("--- file: {} create success ---".format(file_menu))
-
     except Exception as e:
         print("--- file: {} create fail ---".format(file_menu))
         print(e)
